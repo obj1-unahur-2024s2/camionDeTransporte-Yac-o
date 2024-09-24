@@ -1,3 +1,3 @@
-object cosas {
+object  {
     
 }
