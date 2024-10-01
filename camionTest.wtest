@@ -1,9 +1,40 @@
 import camion.*
+import cosas.*
 
 describe "group of test for camion" {
+	test "first test" {
+		camion.cargar(bumblebee)
+		assert.equals(1800, camion.pesoTotal())
 
-  test "first test" {
-    assert.that(true)
-  }
+		arenaAGranel.peso(150)
+		camion.cargar(arenaAGranel)
+		assert.equals(1950, camion.pesoTotal())
+		assert.equals(bumblebee, camion.primerCosaPeligrosa())
 
+		camion.cargar(bateriaAntiaerea)
+		assert.equals(2250, camion.pesoTotal())
+
+		paqueteDeLadrillos.cantLadrillos(80)
+		embalajeDeSeguridad.cosaEnvuelta(paqueteDeLadrillos)
+		camion.cargar(embalajeDeSeguridad)
+		assert.equals(2410, camion.pesoTotal())
+
+		assert.equals([bumblebee, bateriaAntiaerea], cosasMasPeligrosasQue(20))
+	}
+
+	test "Verif. estaExcedidoDePeso() y puedeCircularEnRuta() (no puede)."{
+		camion.cargar(bumblebee)
+
+		arenaAGranel.peso(150)
+		camion.cargar(arenaAGranel)
+
+		camion.cargar(bateriaAntiaerea)
+
+		paqueteDeLadrillos.cantLadrillos(80)
+		embalajeDeSeguridad.cosaEnvuelta(paqueteDeLadrillos)
+		camion.cargar(embalajeDeSeguridad)
+
+		assert.that(camion.estaExcedidoDePeso()) // Da error
+		// Agregar assert puedeCircularEnRuta()
+	}
 }
